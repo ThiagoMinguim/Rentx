@@ -1,5 +1,5 @@
 export default {
-  color: {
+  colors: {
     header: '#1B1B1F',
 
     background_primary: '#F4F5F6',

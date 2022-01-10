@@ -3,14 +3,14 @@ import styled from 'styled-components/native'
 
 export const Container = styled.View`
   flex: 1;
-  background-color: ${({ theme }) => theme.color.background_primary};
+  background-color: ${({ theme }) => theme.colors.background_primary};
 `
 
 export const Header = styled.View`
   width: 100%;
   height: 113px;
 
-  background-color: ${({ theme }) => theme.color.header};
+  background-color: ${({ theme }) => theme.colors.header};
   justify-content: flex-end;
 
   padding: 32px 24px;
@@ -25,5 +25,5 @@ export const TotalCars = styled.Text`
   font-size: ${RFValue(15)}px;
   font-family: ${({ theme }) => theme.font.primary_400};
 
-  color: ${({ theme }) => theme.color.text};
+  color: ${({ theme }) => theme.colors.text};
 `
