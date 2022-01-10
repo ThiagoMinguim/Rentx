@@ -20,17 +20,6 @@ export function Home() {
       'https://e7.pngegg.com/pngimages/895/775/png-clipart-2010-audi-a5-car-audi-coupe-gt-2011-audi-a5-audi-sedan-car-thumbnail.png'
   }
 
-  const carD = {
-    brand: 'Ferrari',
-    name: 'Ferrari',
-    rent: {
-      period: 'Diária',
-      price: 5000
-    },
-    thumbnail:
-      'https://e7.pngegg.com/pngimages/474/546/png-clipart-ferrari-ferrari.png'
-  }
-
   return (
     <S.Container>
       <StatusBar
@@ -44,8 +33,11 @@ export function Home() {
           <S.TotalCars>total de 12 carros</S.TotalCars>
         </S.HeaderContent>
       </S.Header>
-      <Car data={carData} />
-      <Car data={carD} />
+      <S.CarList
+        data={[1, 2, 3, 4, 5, 6, 7]}
+        keyExtractor={item => String(item)}
+        renderItem={() => <Car data={carData} />}
+      />
     </S.Container>
   )
 }
