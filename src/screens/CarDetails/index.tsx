@@ -32,6 +32,12 @@ export function CarDetails() {
             <S.Price>R$ 560</S.Price>
           </S.Rent>
         </S.Details>
+
+        <S.About>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo rem
+          labore sunt eum, commodi, velit ducimus vero, corporis veniam quam
+          ratione impedit nihil. Quisquam dicta temporibus doloribus,laborum.
+        </S.About>
       </S.Content>
     </S.Container>
   )
