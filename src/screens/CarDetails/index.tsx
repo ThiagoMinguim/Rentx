@@ -19,6 +19,20 @@ export function CarDetails() {
           ]}
         />
       </S.CarImages>
+
+      <S.Content>
+        <S.Details>
+          <S.Description>
+            <S.Brand>Lamborghini</S.Brand>
+            <S.Name>Huracan</S.Name>
+          </S.Description>
+
+          <S.Rent>
+            <S.Period>Ao dia</S.Period>
+            <S.Price>R$ 560</S.Price>
+          </S.Rent>
+        </S.Details>
+      </S.Content>
     </S.Container>
   )
 }
