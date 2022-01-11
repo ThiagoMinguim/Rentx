@@ -11,6 +11,7 @@ import exchangeSvg from '../../assets/exchange.svg'
 import peopleSvg from '../../assets/people.svg'
 
 import * as S from './styles'
+import { Button } from '../../components/Button'
 
 export function CarDetails() {
   return (
@@ -54,6 +55,10 @@ export function CarDetails() {
           labore sunt eum, commodi, velit ducimus vero, corporis veniam quam
           ratione impedit nihil. Quisquam dicta temporibus doloribus,laborum.
         </S.About>
+
+        <S.Footer>
+          <Button title="confirmar" />
+        </S.Footer>
       </S.Content>
     </S.Container>
   )
