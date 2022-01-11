@@ -1,4 +1,8 @@
 import React from 'react'
+import { Feather } from '@expo/vector-icons'
+
+import { useTheme } from 'styled-components'
+
 import { Accessory } from '../../components/Accessory'
 import { BackButton } from '../../components/BackButton'
 import { ImageSlider } from '../../components/ImageSlider'
@@ -12,8 +16,11 @@ import peopleSvg from '../../assets/people.svg'
 
 import * as S from './styles'
 import { Button } from '../../components/Button'
+import { RFValue } from 'react-native-responsive-fontsize'
 
-export function CarDetails() {
+export function SchedulingDetails() {
+  const theme = useTheme()
+
   return (
     <S.Container>
       <S.Header>
@@ -48,27 +55,44 @@ export function CarDetails() {
           <Accessory name="Gasolina" icon={gasolineSvg} />
           <Accessory name="Auto" icon={exchangeSvg} />
           <Accessory name="2 pessoas" icon={peopleSvg} />
+
+          <S.RentalPeriod>
+            <S.CalendarIcon>
+              <Feather
+                name="calendar"
+                size={RFValue(24)}
+                px
+                color={theme.colors.shape}
+              />
+            </S.CalendarIcon>
+
+            <S.DateInfo>
+              <S.DateTitle>De</S.DateTitle>
+              <S.DateValue>18/06/2021</S.DateValue>
+            </S.DateInfo>
+
+            <Feather
+              name="chevron-right"
+              size={RFValue(10)}
+              px
+              color={theme.colors.text}
+            />
+
+            <S.DateInfo>
+              <S.DateTitle>De</S.DateTitle>
+              <S.DateValue>18/06/2021</S.DateValue>
+            </S.DateInfo>
+          </S.RentalPeriod>
+
+          <S.RentalPrice>
+            <S.RentalPriceLabel>Total</S.RentalPriceLabel>
+            <S.RentalPriceDetails>
+              <S.RentalPriceQuota>R$ 560 x3 díarias</S.RentalPriceQuota>
+              <S.RentalPriceTotal>R$ 2.900</S.RentalPriceTotal>
+            </S.RentalPriceDetails>
+          </S.RentalPrice>
         </S.Acessories>
-
-        <S.About>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo rem
-          labore sunt eum, commodi, velit ducimus vero, corporis veniam quam
-          ratione impedit nihil. Quisquam dicta temporibus doloribus,laborum.
-        </S.About>
-
-        <S.About>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo rem
-          labore sunt eum, commodi, velit ducimus vero, corporis veniam quam
-          ratione impedit nihil. Quisquam dicta temporibus doloribus,laborum.
-        </S.About>
-
-        <S.About>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo rem
-          labore sunt eum, commodi, velit ducimus vero, corporis veniam quam
-          ratione impedit nihil. Quisquam dicta temporibus doloribus,laborum.
-        </S.About>
       </S.Content>
-
       <S.Footer>
         <Button title="confirmar" />
       </S.Footer>
