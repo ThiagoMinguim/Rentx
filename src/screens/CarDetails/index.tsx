@@ -12,10 +12,19 @@ import peopleSvg from '../../assets/people.svg'
 
 import * as S from './styles'
 import { Button } from '../../components/Button'
+import { StatusBar } from 'expo-status-bar'
+import { useNavigation } from '@react-navigation/native'
 
 export function CarDetails() {
+  const navigation = useNavigation()
+
+  function handleConfirmRental() {
+    navigation.navigate('Scheduling')
+  }
+
   return (
     <S.Container>
+      <StatusBar />
       <S.Header>
         <BackButton onPress={() => {}} />
       </S.Header>
@@ -70,7 +79,10 @@ export function CarDetails() {
       </S.Content>
 
       <S.Footer>
-        <Button title="confirmar" />
+        <Button
+          title="Escolher período do aluguel"
+          onPress={handleConfirmRental}
+        />
       </S.Footer>
     </S.Container>
   )
