@@ -17,8 +17,15 @@ import peopleSvg from '../../assets/people.svg'
 import * as S from './styles'
 import { Button } from '../../components/Button'
 import { RFValue } from 'react-native-responsive-fontsize'
+import { useNavigation } from '@react-navigation/native'
 
 export function SchedulingDetails() {
+  const navigation = useNavigation()
+
+  function handleConfirmRental() {
+    navigation.navigate('SchedulingComplete')
+  }
+
   const theme = useTheme()
 
   return (
@@ -93,8 +100,13 @@ export function SchedulingDetails() {
           </S.RentalPrice>
         </S.Acessories>
       </S.Content>
+      
       <S.Footer>
-        <Button title="confirmar" />
+        <Button
+          title="Alugar agora"
+          onPress={handleConfirmRental}
+          color={theme.colors.sucess}
+        />
       </S.Footer>
     </S.Container>
   )
