@@ -8,9 +8,16 @@ import * as S from './styles'
 import { StatusBar } from 'react-native'
 import { Button } from '../../components/Button'
 import { Calendar } from '../../components/Calendar'
+import { useNavigation } from '@react-navigation/native'
 
 export function Scheduling() {
+  const navigation = useNavigation()
+
   const theme = useTheme()
+
+  function handleConfirmRental() {
+    navigation.navigate('SchedulingDetails')
+  }
 
   return (
     <S.Container>
@@ -48,7 +55,7 @@ export function Scheduling() {
       </S.Content>
 
       <S.Footer>
-        <Button title="confirmar" />
+        <Button title="confirmar" onPress={handleConfirmRental} />
       </S.Footer>
     </S.Container>
   )
