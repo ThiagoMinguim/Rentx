@@ -13,24 +13,22 @@ import { CarDTO } from '../../dtos/CarDTO'
 
 import * as S from './styles'
 
+interface NavigationProps {
+  navigate: (
+    screen: string,
+    carObject: {
+      car: CarDTO
+    }
+  ) => void
+}
+
 export function Home() {
   const [cars, setCars] = useState<CarDTO[]>([])
   const [loading, setLoading] = useState(true)
-  const navigation = useNavigation()
+  const navigation = useNavigation<NavigationProps>()
 
-  const carData = {
-    brand: 'Fiat',
-    name: 'Uno',
-    rent: {
-      period: 'Diária',
-      price: 50
-    },
-    thumbnail:
-      'https://e7.pngegg.com/pngimages/895/775/png-clipart-2010-audi-a5-car-audi-coupe-gt-2011-audi-a5-audi-sedan-car-thumbnail.png'
-  }
-
-  function handleCarDetails() {
-    navigation.navigate('CarDetails')
+  function handleCarDetails(car: CarDTO) {
+    navigation.navigate('CarDetails', { car })
   }
 
   useEffect(() => {
@@ -38,6 +36,7 @@ export function Home() {
       try {
         const response = await api.get('/cars')
         setCars(response.data)
+        console.log(response)
       } catch (error) {
         console.log(error)
       } finally {
@@ -68,7 +67,7 @@ export function Home() {
           data={cars}
           keyExtractor={item => item.id}
           renderItem={({ item }) => (
-            <Car data={item} onPress={handleCarDetails} />
+            <Car data={item} onPress={() => handleCarDetails(item)} />
           )}
         />
       )}
