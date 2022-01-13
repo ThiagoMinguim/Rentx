@@ -11,24 +11,25 @@ import { StatusBar } from 'expo-status-bar'
 import { useNavigation, useRoute } from '@react-navigation/native'
 
 import { CarDTO } from '../../dtos/CarDTO'
+import { RootStackParamList } from '../../routes/stack.routes'
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
 
 interface Params {
   car: CarDTO
 }
 
-export function CarDetails() {
-  const route = useRoute()
-  const navigation = useNavigation()
+type CarDetailsProps = NativeStackScreenProps<RootStackParamList, 'CarDetails'>
+
+export function CarDetails({ navigation, route }: CarDetailsProps) {
+  const { car } = route.params as Params
 
   function handleConfirmRental() {
-    navigation.navigate('Scheduling')
+    navigation.navigate('Scheduling', { car })
   }
 
   function handleBack() {
     navigation.goBack()
   }
-
-  const { car } = route.params as Params
 
   return (
     <S.Container>

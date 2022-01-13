@@ -20,19 +20,18 @@ import { RFValue } from 'react-native-responsive-fontsize'
 import { useNavigation, useRoute } from '@react-navigation/native'
 
 import { CarDTO } from '../../dtos/CarDTO'
-
-interface Params {
-  car: CarDTO
-}
+const { car } = route.params as Params
 
 export function SchedulingDetails() {
   const navigation = useNavigation()
   const route = useRoute()
 
-  const { car } = route.params as Params
-
   function handleConfirmRental() {
     navigation.navigate('SchedulingComplete')
+  }
+
+  function handleBack() {
+    navigation.goBack()
   }
 
   const theme = useTheme()
@@ -40,7 +39,7 @@ export function SchedulingDetails() {
   return (
     <S.Container>
       <S.Header>
-        <BackButton onPress={() => {}} />
+        <BackButton onPress={handleBack} />
       </S.Header>
 
       <S.CarImages>
