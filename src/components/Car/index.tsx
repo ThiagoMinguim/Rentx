@@ -1,22 +1,12 @@
 import React from 'react'
-import { TouchableOpacity } from 'react-native'
 
 import Gasoline from '../../assets/gasoline.svg'
+import { CarDTO } from '../../dtos/CarDTO'
 
 import * as S from './styles'
 
-interface CarData {
-  brand: string
-  name: string
-  rent: {
-    period: string
-    price: number
-  }
-  thumbnail: string
-}
-
 interface Props {
-  data: CarData
+  data: CarDTO
   onPress: () => void
 }
 
