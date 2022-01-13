@@ -17,10 +17,19 @@ import peopleSvg from '../../assets/people.svg'
 import * as S from './styles'
 import { Button } from '../../components/Button'
 import { RFValue } from 'react-native-responsive-fontsize'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
+
+import { CarDTO } from '../../dtos/CarDTO'
+
+interface Params {
+  car: CarDTO
+}
 
 export function SchedulingDetails() {
   const navigation = useNavigation()
+  const route = useRoute()
+
+  const { car } = route.params as Params
 
   function handleConfirmRental() {
     navigation.navigate('SchedulingComplete')
@@ -45,17 +54,17 @@ export function SchedulingDetails() {
       <S.Content>
         <S.Details>
           <S.Description>
-            <S.Brand>Lamborghini</S.Brand>
-            <S.Name>Huracan</S.Name>
+            <S.Brand>{car.brand}</S.Brand>
+            <S.Name>{car.name}</S.Name>
           </S.Description>
 
           <S.Rent>
-            <S.Period>Ao dia</S.Period>
-            <S.Price>R$ 560</S.Price>
+            <S.Period>{car.rent.period}</S.Period>
+            <S.Price>R$ {car.rent.price} </S.Price>
           </S.Rent>
         </S.Details>
 
-        <S.Acessories>
+        <S.Accessories>
           <Accessory name="380km/h" icon={speedSvg} />
           <Accessory name="3.2s" icon={accelerationSvg} />
           <Accessory name="800 hp" icon={forceSvg} />
@@ -98,9 +107,9 @@ export function SchedulingDetails() {
               <S.RentalPriceTotal>R$ 2.900</S.RentalPriceTotal>
             </S.RentalPriceDetails>
           </S.RentalPrice>
-        </S.Acessories>
+        </S.Accessories>
       </S.Content>
-      
+
       <S.Footer>
         <Button
           title="Alugar agora"
