@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { StatusBar } from 'react-native'
+import { Ionicons } from '@expo/vector-icons'
 import { RFValue } from 'react-native-responsive-fontsize'
+import { useTheme } from 'styled-components'
 
 import Logo from '../../assets/logo.svg'
 import { api } from '../../services/api'
@@ -12,23 +14,22 @@ import { Load } from '../../components/Load'
 import { CarDTO } from '../../dtos/CarDTO'
 
 import * as S from './styles'
+import { RootStackParamList } from '../../routes/stack.routes'
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
 
-interface NavigationProps {
-  navigate: (
-    screen: string,
-    carObject: {
-      car: CarDTO
-    }
-  ) => void
-}
+type Home = NativeStackScreenProps<RootStackParamList, 'Home'>
 
-export function Home() {
+export function Home({ navigation }: Home) {
+  const theme = useTheme()
   const [cars, setCars] = useState<CarDTO[]>([])
   const [loading, setLoading] = useState(true)
-  const navigation = useNavigation<NavigationProps>()
 
   function handleCarDetails(car: CarDTO) {
     navigation.navigate('CarDetails', { car })
+  }
+
+  function handleOpenMyCars() {
+    navigation.navigate('MyCars')
   }
 
   useEffect(() => {
@@ -36,7 +37,6 @@ export function Home() {
       try {
         const response = await api.get('/cars')
         setCars(response.data)
-        console.log(response)
       } catch (error) {
         console.log(error)
       } finally {
@@ -71,6 +71,10 @@ export function Home() {
           )}
         />
       )}
+
+      <S.MyCarsButton onPress={handleOpenMyCars}>
+        <Ionicons name="ios-car-sport" size={32} color={theme.colors.shape} />
+      </S.MyCarsButton>
     </S.Container>
   )
 }
