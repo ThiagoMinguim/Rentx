@@ -13,7 +13,6 @@ import {
   generateInterval,
   CalendarProps
 } from '../../components/Calendar'
-import { useNavigation, useRoute } from '@react-navigation/native'
 import { format } from 'date-fns'
 import { getPlatformDate } from '../../utils/getPlatformDate'
 import { CarDTO } from '../../dtos/CarDTO'
