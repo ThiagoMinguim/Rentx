@@ -17,6 +17,7 @@ import { RootStackParamList } from '../../routes/stack.routes'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { api } from '../../services/api'
 import { Alert } from 'react-native'
+import { StatusBar } from 'expo-status-bar'
 
 interface Params {
   car: CarDTO
@@ -43,19 +44,24 @@ export function SchedulingDetails({ navigation, route }: SchedulingProps) {
   const rentTotal = Number(dates.length * car.rent.price)
 
   async function handleConfirm() {
-    const schedulesByCar = await api.get(`/schedules/car/${car.id}`)
+    const schedulesByCar = await api.get(`/schedules_bycars/${car.id}`)
 
     const unavailable_dates = [
       ...schedulesByCar.data.unavailable_dates,
       ...dates
     ]
 
-    await api
-      .put(`/schedules/car/${car.id}`, {
+    await api.post('schedules_byuser', {
+      user_id: 1,
+      car
+    })
+
+    api
+      .put(`/schedules_bycars/${car.id}`, {
         id: car.id,
         unavailable_dates: unavailable_dates
       })
-      .then(response => {
+      .then(() => {
         navigation.navigate('SchedulingComplete')
       })
       .catch(() => Alert.alert('Erro ao reservar o carro'))
@@ -76,6 +82,7 @@ export function SchedulingDetails({ navigation, route }: SchedulingProps) {
 
   return (
     <S.Container>
+      <StatusBar />
       <S.Header>
         <BackButton onPress={handleBack} />
       </S.Header>
