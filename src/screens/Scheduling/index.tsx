@@ -127,7 +127,11 @@ export function Scheduling({ navigation, route }: SchedulingProps) {
       </S.Content>
 
       <S.Footer>
-        <Button title="confirmar" onPress={handleConfirmRental} />
+        <Button
+          title="confirmar"
+          onPress={handleConfirmRental}
+          disabled={!rentalPeriod.endFormatted}
+        />
       </S.Footer>
     </S.Container>
   )
