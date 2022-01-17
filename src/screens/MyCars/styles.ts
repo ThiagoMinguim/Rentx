@@ -91,6 +91,12 @@ export const CarFooterTitle = styled.Text`
   font-size: ${RFValue(10)}px;
 `
 
-export const CarFooterPeriod = styled.Text``
+export const CarFooterPeriod = styled.View`
+  flex-direction: row;
+`
 
-export const CarFooterDate = styled.Text``
+export const CarFooterDate = styled.Text`
+  color: ${props => props.theme.colors.title};
+  font-family: ${props => props.theme.font.primary_400};
+  font-size: ${RFValue(13)}px;
+`
