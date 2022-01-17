@@ -4,7 +4,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { BackButton } from '../../components/BackButton'
 import { AntDesign } from '@expo/vector-icons'
 import { Car } from '../../components/Car'
-
+import { Load } from '../../components/Load'
 import { CarDTO } from '../../dtos/CarDTO'
 import { RootStackParamList } from '../../routes/stack.routes'
 import { api } from '../../services/api'
@@ -16,6 +16,8 @@ interface CarProps {
   id: string
   user_id: string
   car: CarDTO
+  startDate: string
+  endDate: string
 }
 
 type SchedulingProps = NativeStackScreenProps<RootStackParamList, 'MyCars'>
@@ -60,36 +62,41 @@ export function MyCars({ navigation }: SchedulingProps) {
         </S.Title>
         <S.SubTItle>Conforto, segurança e praticidade.</S.SubTItle>
       </S.Header>
-      <S.Content>
-        <S.Appointments>
-          <S.AppointmentsTitle>Agendamentos feitos</S.AppointmentsTitle>
-          <S.AppointmentsQuantity>05</S.AppointmentsQuantity>
-        </S.Appointments>
+      
+      {loading ? (
+        <Load />
+      ) : (
+        <S.Content>
+          <S.Appointments>
+            <S.AppointmentsTitle>Agendamentos feitos</S.AppointmentsTitle>
+            <S.AppointmentsQuantity>{cars.length}</S.AppointmentsQuantity>
+          </S.Appointments>
 
-        <FlatList
-          data={cars}
-          keyExtractor={item => item.id}
-          showsVerticalScrollIndicator={false}
-          renderItem={({ item }) => (
-            <S.CarWrapper>
-              <Car data={item.car} />
-              <S.CarFooter>
-                <S.CarFooterTitle>Período</S.CarFooterTitle>
-                <S.CarFooterPeriod>
-                  <S.CarFooterDate>18/06/2021</S.CarFooterDate>
-                  <AntDesign
-                    name="arrowright"
-                    size={20}
-                    color={theme.colors.title}
-                    style={{ marginHorizontal: 10 }}
-                  />
-                  <S.CarFooterDate>20/06/2021</S.CarFooterDate>
-                </S.CarFooterPeriod>
-              </S.CarFooter>
-            </S.CarWrapper>
-          )}
-        />
-      </S.Content>
+          <FlatList
+            data={cars}
+            keyExtractor={item => item.id}
+            showsVerticalScrollIndicator={false}
+            renderItem={({ item }) => (
+              <S.CarWrapper>
+                <Car data={item.car} />
+                <S.CarFooter>
+                  <S.CarFooterTitle>Período</S.CarFooterTitle>
+                  <S.CarFooterPeriod>
+                    <S.CarFooterDate>{item.startDate}</S.CarFooterDate>
+                    <AntDesign
+                      name="arrowright"
+                      size={20}
+                      color={theme.colors.title}
+                      style={{ marginHorizontal: 10 }}
+                    />
+                    <S.CarFooterDate>{item.endDate}</S.CarFooterDate>
+                  </S.CarFooterPeriod>
+                </S.CarFooter>
+              </S.CarWrapper>
+            )}
+          />
+        </S.Content>
+      )}
     </S.Container>
   )
 }
