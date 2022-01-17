@@ -35,6 +35,7 @@ type SchedulingProps = NativeStackScreenProps<
 >
 
 export function SchedulingDetails({ navigation, route }: SchedulingProps) {
+  const [loading, setLoading] = useState(false)
   const [rentalPeriod, setRentalPeriod] = useState<RentalPeriod>(
     {} as RentalPeriod
   )
@@ -44,6 +45,8 @@ export function SchedulingDetails({ navigation, route }: SchedulingProps) {
   const rentTotal = Number(dates.length * car.rent.price)
 
   async function handleConfirm() {
+    setLoading(true)
+
     const schedulesByCar = await api.get(`/schedules_bycars/${car.id}`)
 
     const unavailable_dates = [
@@ -53,7 +56,9 @@ export function SchedulingDetails({ navigation, route }: SchedulingProps) {
 
     await api.post('schedules_byuser', {
       user_id: 1,
-      car
+      car,
+      startDate: format(new Date(dates[0]), 'dd/MM/yyyy'),
+      endDate: format(new Date(dates[dates.length - 1]), 'dd/MM/yyyy')
     })
 
     api
@@ -64,7 +69,10 @@ export function SchedulingDetails({ navigation, route }: SchedulingProps) {
       .then(() => {
         navigation.navigate('SchedulingComplete')
       })
-      .catch(() => Alert.alert('Erro ao reservar o carro'))
+      .catch(() => {
+        setLoading(false)
+        Alert.alert('Erro ao reservar o carro')
+      })
   }
 
   function handleBack() {
@@ -156,6 +164,8 @@ export function SchedulingDetails({ navigation, route }: SchedulingProps) {
           title="Alugar agora"
           onPress={handleConfirm}
           color={theme.colors.sucess}
+          disabled={loading}
+          loading={loading}
         />
       </S.Footer>
     </S.Container>
