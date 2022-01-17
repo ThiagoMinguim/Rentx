@@ -9,7 +9,6 @@ import * as S from './styles'
 
 interface Props {
   data: CarDTO
-  onPress: () => void
 }
 
 export function Car({ data, ...rest }: Props) {
