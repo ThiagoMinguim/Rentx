@@ -14,4 +14,5 @@ export interface CarDTO {
     name: string
   }[]
   photos: string[]
+  onPress: () => void
 }
