@@ -7,6 +7,7 @@ import { CarDetails } from '../screens/CarDetails'
 import { Scheduling } from '../screens/Scheduling'
 import { SchedulingDetails } from '../screens/SchedulingDetails'
 import { MyCars } from '../screens/MyCars'
+import { Splash } from '../screens/Splash'
 
 import { CarDTO } from '../dtos/CarDTO'
 
@@ -14,7 +15,9 @@ export function StackRoutes() {
   const { Navigator, Screen } = createNativeStackNavigator()
 
   return (
-    <Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
+    <Navigator initialRouteName="Splash" screenOptions={{ headerShown: false }}>
+      <Screen name="Splash" component={Splash} />
+
       <Screen name="Home" component={Home} />
 
       <Screen name="CarDetails" component={CarDetails} />
