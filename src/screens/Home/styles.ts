@@ -39,11 +39,11 @@ export const CarList = styled(
 })``
 
 export const MyCarsButton = styled(TouchableOpacity)`
-  width: 60px
-  height: 60px
+  width: 60px;
+  height: 60px;
 
-  border-radius: 30px
-  
+  border-radius: 30px;
+
   justify-content: center;
   align-items: center;
 
