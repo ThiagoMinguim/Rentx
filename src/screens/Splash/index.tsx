@@ -14,6 +14,7 @@ import Animated, {
 
 import * as S from './styles'
 import { useNavigation } from '@react-navigation/native'
+import { StatusBar } from 'expo-status-bar'
 
 export function Splash() {
   const splashAnimation = useSharedValue(0)
@@ -65,6 +66,7 @@ export function Splash() {
 
   return (
     <S.Container>
+      <StatusBar style="light" />
       <Animated.View style={[brandStyle, { position: 'absolute' }]}>
         <BrandSvg width={80} height={50} />
       </Animated.View>
