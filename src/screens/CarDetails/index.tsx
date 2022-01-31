@@ -6,13 +6,22 @@ import { ImageSlider } from '../../components/ImageSlider'
 import { getAccessoryIcon } from '../../utils/getAccessoryIcon'
 
 import * as S from './styles'
+
+import Animated, {
+  useSharedValue,
+  useAnimatedScrollHandler,
+  useAnimatedStyle,
+  interpolate,
+  Extrapolate
+} from 'react-native-reanimated'
+
 import { Button } from '../../components/Button'
 import { StatusBar } from 'expo-status-bar'
-import { useNavigation, useRoute } from '@react-navigation/native'
 
 import { CarDTO } from '../../dtos/CarDTO'
 import { RootStackParamList } from '../../routes/stack.routes'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { getStatusBarHeight } from 'react-native-iphone-x-helper'
 
 interface Params {
   car: CarDTO
@@ -22,6 +31,19 @@ type CarDetailsProps = NativeStackScreenProps<RootStackParamList, 'CarDetails'>
 
 export function CarDetails({ navigation, route }: CarDetailsProps) {
   const { car } = route.params as Params
+
+  const scrollY = useSharedValue(0)
+
+  const scrollHandler = useAnimatedScrollHandler(event => {
+    scrollY.value = event.contentOffset.y
+    console.log(event.contentOffset.y)
+  })
+
+  const headerStyleAnimation = useAnimatedStyle(() => {
+    return {
+      height: interpolate(scrollY.value, [0, 200], [200, 70], Extrapolate.CLAMP)
+    }
+  })
 
   function handleConfirmRental() {
     navigation.navigate('Scheduling', { car })
@@ -34,15 +56,25 @@ export function CarDetails({ navigation, route }: CarDetailsProps) {
   return (
     <S.Container>
       <StatusBar />
-      <S.Header>
-        <BackButton onPress={handleBack} />
-      </S.Header>
 
-      <S.CarImages>
-        <ImageSlider imagesUrl={car.photos} />
-      </S.CarImages>
+      <Animated.View style={[headerStyleAnimation]}>
+        <S.Header>
+          <BackButton onPress={handleBack} />
+        </S.Header>
 
-      <S.Content>
+        <S.CarImages>
+          <ImageSlider imagesUrl={car.photos} />
+        </S.CarImages>
+      </Animated.View>
+
+      <Animated.ScrollView
+        contentContainerStyle={{
+          paddingHorizontal: 24,
+          paddingTop: getStatusBarHeight(),
+          alignItems: 'center'
+        }}
+        showsHorizontalScrollIndicator={false}
+        onScroll={scrollHandler}>
         <S.Details>
           <S.Description>
             <S.Brand>{car.brand}</S.Brand>
@@ -66,7 +98,9 @@ export function CarDetails({ navigation, route }: CarDetailsProps) {
         </S.Acessories>
 
         <S.About>{car.about}</S.About>
-      </S.Content>
+        <S.About>{car.about}</S.About>
+        <S.About>{car.about}</S.About>
+      </Animated.ScrollView>
 
       <S.Footer>
         <Button
