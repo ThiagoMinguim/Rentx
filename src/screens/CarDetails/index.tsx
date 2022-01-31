@@ -1,4 +1,6 @@
 import React from 'react'
+import { useTheme } from 'styled-components'
+import { StyleSheet } from 'react-native'
 import { Accessory } from '../../components/Accessory'
 import { BackButton } from '../../components/BackButton'
 import { ImageSlider } from '../../components/ImageSlider'
@@ -32,6 +34,8 @@ type CarDetailsProps = NativeStackScreenProps<RootStackParamList, 'CarDetails'>
 export function CarDetails({ navigation, route }: CarDetailsProps) {
   const { car } = route.params as Params
 
+  const theme = useTheme()
+
   const scrollY = useSharedValue(0)
 
   const scrollHandler = useAnimatedScrollHandler(event => {
@@ -42,6 +46,12 @@ export function CarDetails({ navigation, route }: CarDetailsProps) {
   const headerStyleAnimation = useAnimatedStyle(() => {
     return {
       height: interpolate(scrollY.value, [0, 200], [200, 70], Extrapolate.CLAMP)
+    }
+  })
+
+  const sliderCarsStyleAnimation = useAnimatedStyle(() => {
+    return {
+      opacity: interpolate(scrollY.value, [0, 150], [1, 0], Extrapolate.CLAMP)
     }
   })
 
@@ -57,27 +67,36 @@ export function CarDetails({ navigation, route }: CarDetailsProps) {
     <S.Container>
       <StatusBar />
 
-      <Animated.View style={[headerStyleAnimation]}>
+      <Animated.View
+        style={[
+          headerStyleAnimation,
+          styles.header,
+          { backgroundColor: theme.colors.background_secundary }
+        ]}>
         <S.Header>
           <BackButton onPress={handleBack} />
         </S.Header>
 
         <S.CarImages>
-          <ImageSlider imagesUrl={car.photos} />
+          <Animated.View style={sliderCarsStyleAnimation}>
+            <ImageSlider imagesUrl={car.photos} />
+          </Animated.View>
         </S.CarImages>
       </Animated.View>
 
       <Animated.ScrollView
         contentContainerStyle={{
           paddingHorizontal: 24,
-          paddingTop: getStatusBarHeight(),
+          paddingTop: getStatusBarHeight() + 160,
           alignItems: 'center'
         }}
         showsHorizontalScrollIndicator={false}
-        onScroll={scrollHandler}>
+        onScroll={scrollHandler}
+        scrollEventThrottle={16}>
         <S.Details>
           <S.Description>
             <S.Brand>{car.brand}</S.Brand>
+
             <S.Name>{car.name}</S.Name>
           </S.Description>
 
@@ -111,3 +130,11 @@ export function CarDetails({ navigation, route }: CarDetailsProps) {
     </S.Container>
   )
 }
+
+const styles = StyleSheet.create({
+  header: {
+    position: 'absolute',
+    overflow: 'hidden',
+    zIndex: 1
+  }
+})
