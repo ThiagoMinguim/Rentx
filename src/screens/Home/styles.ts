@@ -45,6 +45,7 @@ export const MyCarsButton = styled(TouchableOpacity)`
   border-radius: 30px;
 
   justify-content: center;
+
   align-items: center;
 
   background-color: ${({ theme }) => theme.colors.main};
