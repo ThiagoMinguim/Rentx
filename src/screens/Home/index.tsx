@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { StatusBar, TouchableOpacity, StyleSheet } from 'react-native'
+import {
+  StatusBar,
+  TouchableOpacity,
+  StyleSheet,
+  BackHandler
+} from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { RFValue } from 'react-native-responsive-fontsize'
 import { useTheme } from 'styled-components'
@@ -76,6 +81,10 @@ export function Home({ navigation }: Home) {
 
     fetchCars()
   }, [])
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', () => true)
+  })
 
   return (
     <S.Container>
