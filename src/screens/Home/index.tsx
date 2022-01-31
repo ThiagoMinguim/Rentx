@@ -23,7 +23,7 @@ import Logo from '../../assets/logo.svg'
 import { api } from '../../services/api'
 
 import { Car } from '../../components/Car'
-import { Load } from '../../components/Load'
+import { LoadAnimation } from '../../components/LoadAnimation'
 
 import { CarDTO } from '../../dtos/CarDTO'
 
@@ -100,7 +100,7 @@ export function Home({ navigation }: Home) {
         </S.HeaderContent>
       </S.Header>
       {loading ? (
-        <Load />
+        <LoadAnimation />
       ) : (
         <S.CarList
           data={cars}

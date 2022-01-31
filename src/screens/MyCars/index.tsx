@@ -4,7 +4,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { BackButton } from '../../components/BackButton'
 import { AntDesign } from '@expo/vector-icons'
 import { Car } from '../../components/Car'
-import { Load } from '../../components/Load'
+import { LoadAnimation } from '../../components/LoadAnimation'
 import { CarDTO } from '../../dtos/CarDTO'
 import { RootStackParamList } from '../../routes/stack.routes'
 import { api } from '../../services/api'
@@ -62,7 +62,7 @@ export function MyCars({ navigation }: SchedulingProps) {
       </S.Header>
 
       {loading ? (
-        <Load />
+        <LoadAnimation />
       ) : (
         <S.Content>
           <S.Appointments>
