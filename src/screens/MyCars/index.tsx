@@ -34,8 +34,6 @@ export function MyCars({ navigation }: SchedulingProps) {
     async function fetchCars() {
       try {
         const response = await api.get('/schedules_byuser?user_id=1')
-        console.log(response.data)
-
         setCars(response.data)
       } catch (err) {
         console.log(err)
@@ -62,7 +60,7 @@ export function MyCars({ navigation }: SchedulingProps) {
         </S.Title>
         <S.SubTItle>Conforto, segurança e praticidade.</S.SubTItle>
       </S.Header>
-      
+
       {loading ? (
         <Load />
       ) : (
